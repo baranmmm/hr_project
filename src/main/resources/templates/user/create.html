@@ -32,19 +32,25 @@
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form>
+                                    <form class="needs-validation" novalidate>
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="firstname" class="col-form-label">First Name</label>
-                                                    <input id="firstname" type="text" placeholder="first name" class="form-control">
+                                                    <input id="firstname" type="text" placeholder="First Name" class="form-control" required>
+                                                    <div class="invalid-feedback">
+                                                        Please provide your first name.
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="lastname" class="col-form-label">Last Name</label>
-                                                    <input id="lastname" type="text" placeholder="last name" class="form-control">
+                                                    <input id="lastname" type="text" placeholder="Last Name" class="form-control" required>
+                                                    <div class="invalid-feedback">
+                                                        Please provide your last name.
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -53,14 +59,20 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="emailaddress" class="col-form-label">Email Address</label>
-                                                    <input id="emailaddress" type="text" placeholder="email address" class="form-control">
+                                                    <input id="emailaddress" type="text" placeholder="email@example.com" class="form-control" required>
+                                                    <div class="invalid-feedback">
+                                                        Please provide your email address.
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="phonenumber" class="col-form-label">Phone Number</label>
-                                                    <input id="phonenumber" type="text" placeholder="phone number" class="form-control">
+                                                    <input id="phonenumber" type="text" placeholder="phone number" class="form-control" required pattern="^\d{10}$">
+                                                    <div class="invalid-feedback">
+                                                        Please provide 10 digit mobile number.
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -69,14 +81,26 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="password" class="col-form-label">Password</label>
-                                                    <input id="password" type="password" placeholder="password" class="form-control">
+                                                    <input id="password" type="password" placeholder="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" required>
+                                                    <div class="invalid-feedback">
+                                                        Must contain at least one number and one uppercase and lowercase letter, and at least 4 or more characters
+                                                    </div>
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="repassword" class="col-form-label">Password</label>
-                                                    <input id="repassword" type="password" placeholder="confirm your password" class="form-control">
+                                                    <input id="repassword" type="password" placeholder="confirm your password" class="form-control" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}">
+                                                    <div class="invalid-feedback">
+                                                        Must contain at least one number and one uppercase and lowercase letter, and at least 4 or more characters
+                                                    </div>
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -86,7 +110,7 @@
                                                 <div class="form-group">
                                                     <label>Gender</label><br>
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Male</span>
+                                                        <input type="radio" name="radio-inline" checked="" class="custom-control-input" ><span class="custom-control-label">Male</span>
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Female</span>
@@ -111,7 +135,7 @@
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6 col-lg-12">
                                                 <div class="float-right">
-                                                    <button type="button" class="btn btn-success">Save</button>
+                                                    <button type="submit" class="btn btn-success">Save</button>
                                                 </div>
                                             </div>
                                         </div>
