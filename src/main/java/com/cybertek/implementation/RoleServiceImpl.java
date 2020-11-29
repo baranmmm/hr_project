@@ -2,7 +2,6 @@ package com.cybertek.implementation;
 
 import com.cybertek.dto.RoleDTO;
 import com.cybertek.service.RoleService;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
