@@ -38,13 +38,12 @@ public class UserController {
 
         userService.save(user);     //I am saving the user which created in @GetMapping
 
-        model.addAttribute("user", new UserDTO());              //I need an empty user form
-        model.addAttribute("roles", roleService.findAll());     //I need roles in my dropdown
-        model.addAttribute("users", userService.findAll());     //I need user information in my table
+//        model.addAttribute("user", new UserDTO());              //I need an empty user form
+//        model.addAttribute("roles", roleService.findAll());     //I need roles in my dropdown
+//        model.addAttribute("users", userService.findAll());     //I need user information in my table
 
 
-        return "/user/create";
-
+        return "redirect:/user/create";
 
     }
 
@@ -73,4 +72,13 @@ public class UserController {
 
         return "/user/create";
     }
+
+    @GetMapping("/delete/{userId}")
+    public String deleteUser(@PathVariable("userId") String userId, UserDTO user, Model model){
+
+        userService.deleteById(userId);
+        return "redirect:/user/create";
+    }
+
+
 }
