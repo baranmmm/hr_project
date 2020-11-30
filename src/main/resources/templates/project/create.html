@@ -31,7 +31,7 @@
                                             <div class="form-group">
                                                 <label for="projectname" class="col-form-label">Project Name</label>
                                                 <input id="projectname" type="text"
-                                                       class="form-control" th:field="*{projectCode}">
+                                                       class="form-control" th:field="*{projectName}">
                                             </div>
                                         </div>
                                     </div>
@@ -47,11 +47,13 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
-                                                <label for="manager-select">Assigned Manager</label>
-                                                <select class="form-control" id="manager-select">
-                                                    <option name="select" value="select">Select</option>
-                                                    <option name="admin" value="admin">Mehmet Baran</option>
-                                                    <option name="manager" value="manager">Sati Baran</option>
+                                                <label>Assigned Manager</label>
+                                                <select th:field="*{assignedManager}" class="custom-select"
+                                                        required="required">
+                                                    <option th:value=" ' '" th:text="Select">Select</option>
+                                                    <option th:each="manager: ${managers}" th:value="${manager.userId}"
+                                                            th:text="${manager.firstName}+ ' '+${manager.lastName}"></option>
+
                                                 </select>
                                             </div>
                                         </div>
@@ -83,7 +85,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12">
                                             <div class="float-right">
-                                                <button type="button" class="btn btn-success">Save</button>
+                                                <button type="submit" class="btn btn-success">Save</button>
                                             </div>
                                         </div>
 
@@ -120,24 +122,12 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>PRJ001</td>
-                                                <td>Human Resource CRM</td>
-                                                <td>11.03.2020 - 11.09.2020</td>
-                                                <td>Mehmet Baran</td>
-                                                <td>In Progress</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-warning">Update</button>
-                                                    <button type="button" class="btn btn-danger">Delete</button>
-                                                    <button type="button" class="btn btn-primary">Complete</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>PRJ002</td>
-                                                <td>Infra Upgrade</td>
-                                                <td>11.03.2020 - 11.06.2020</td>
-                                                <td>Sati Baran</td>
-                                                <td>UAT Testing</td>
+                                            <tr th:each="project : ${projects}">
+                                                <td th:text="${project.projectCode}"></td>
+                                                <td th:text="${project.projectName}"></td>
+                                                <td th:text="${project.startDate + '-' + project.endDate}"></td>
+                                                <td th:text="${project.assignedManager.firstName + ' '+ project.assignedManager.lastName}"></td>
+                                                <td th:text="${project.projectStatus}"></td>
                                                 <td>
                                                     <button type="button" class="btn btn-warning">Update</button>
                                                     <button type="button" class="btn btn-danger">Delete</button>
