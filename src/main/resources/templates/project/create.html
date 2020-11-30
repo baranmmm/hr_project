@@ -25,13 +25,13 @@
                         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
                             <div class="section-block" id="basicform">
                                 <h3>Project Create</h3>
-                                <form>
+                                <form th:action="@{/project/create}" method="post" th:object="${project}" class="needs-validation" novalidate>
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <label for="projectname" class="col-form-label">Project Name</label>
                                                 <input id="projectname" type="text"
-                                                       class="form-control">
+                                                       class="form-control" th:field="*{projectCode}">
                                             </div>
                                         </div>
                                     </div>
@@ -40,7 +40,7 @@
                                             <div class="form-group">
                                                 <label for="projectcode" class="col-form-label">Project Code</label>
                                                 <input id="projectcode" type="text"
-                                                       class="form-control">
+                                                       class="form-control" th:field="*{projectCode}">
                                             </div>
                                         </div>
                                     </div>
@@ -60,11 +60,11 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6">
                                             <label for="projectstart">Project Start Date</label><br>
-                                            <input class="form-control" type="date" value="YYYY-MM-DD" id="projectstart">
+                                            <input class="form-control" type="date" value="YYYY-MM-DD" id="projectstart" th:field="*{startDate}">
                                         </div>
                                         <div class="col-lg-6 col-md-6">
-                                            <label for="projectend">Project Start Date</label><br>
-                                            <input class="form-control" type="date" value="YYYY-MM-DD" id="projectend">
+                                            <label for="projectend">Project End Date</label><br>
+                                            <input class="form-control" type="date" value="YYYY-MM-DD" id="projectend" th:field="*{endDate}">
                                         </div>
                                     </div>
 
@@ -74,7 +74,7 @@
                                             <div class="form-group">
                                                 <label for="projectdetail">Project Detail</label>
                                                 <textarea class="form-control" id="projectdetail"
-                                                          rows="3"></textarea>
+                                                          rows="3" th:field="*{projectDetail}"></textarea>
                                             </div>
                                         </div>
                                     </div>
