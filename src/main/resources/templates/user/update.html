@@ -26,13 +26,13 @@
 
                             <section class="panel panel-transparent">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">User Create</h2>
+                                    <h2 class="panel-title">User Update</h2>
                                 </header>
 
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form th:action="@{/user/create}" method="post" th:object="${user}"
+                                    <form th:action="@{/user/update/{id}(id=${user.userId})}" method="post" th:object="${user}"
                                           class="needs-validation" novalidate>
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6">
@@ -141,12 +141,11 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label>Choose a Role</label>
-                                                    <select th:field="*{role}" class="custom-select"
+                                                    <select name="role" class="custom-select"
                                                             required="required">
                                                         <option th:value=" ' '" th:text="Select">Select</option>
                                                         <option th:each="role: ${roles}" th:value="${role.id}"
-                                                                th:text="${role.description}"></option>
-
+                                                                th:text="${role.description}" th:selected="${role.id}==${user.role.id}"></option>
                                                     </select>
                                                 </div>
                                             </div>

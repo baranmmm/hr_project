@@ -10,7 +10,7 @@ import java.util.List;
 public class UserServiceImpl extends AbstractMapService<UserDTO, String> implements UserService {
     @Override
     public UserDTO save(UserDTO object) {
-        return super.save(object.getUsername(), object);
+        return super.save(object.getUserId(), object);
     }
 
     @Override
@@ -24,12 +24,17 @@ public class UserServiceImpl extends AbstractMapService<UserDTO, String> impleme
     }
 
     @Override
-    public void deleteById(String username) {
-        super.deleteById(username);
+    public void update(UserDTO object) {
+        super.update(object.getUserId(),object);
     }
 
     @Override
-    public UserDTO findById(String username) {
-        return super.findById(username);
+    public void deleteById(String userId) {
+        super.deleteById(userId);
+    }
+
+    @Override
+    public UserDTO findById(String userId) {
+        return super.findById(userId);
     }
 }

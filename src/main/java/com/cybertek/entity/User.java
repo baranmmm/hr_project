@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 public class User extends BaseEntity{
 
+    private String userId;
     private String firstName;
     private String lastName;
     private String username;
@@ -24,7 +25,7 @@ public class User extends BaseEntity{
     private Gender gender;
 
 
-    public User(Long id, LocalDateTime insertDateTime, Long insertUserId, LocalDateTime lastUpdateDateTime, Long lastUpdateUserId, String firstName, String lastName, String username, String password, boolean enabled, String phone, Role role, Gender gender) {
+    public User(Long id, LocalDateTime insertDateTime, Long insertUserId, LocalDateTime lastUpdateDateTime, Long lastUpdateUserId, String userId, String firstName, String lastName, String username, String password, boolean enabled, String phone, Role role, Gender gender) {
         super(id, insertDateTime, insertUserId, lastUpdateDateTime, lastUpdateUserId);
         this.firstName = firstName;
         this.lastName = lastName;
