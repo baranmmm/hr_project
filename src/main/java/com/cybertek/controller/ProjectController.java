@@ -66,8 +66,10 @@ public class ProjectController {
         @PostMapping("/update/{projectCode}")
         public String updatedProject(@PathVariable("projectCode") String projectCode, ProjectDTO project, Model model){
 
-
+            Status initialProjectStatus = projectService.findById(projectCode).getProjectStatus();
             projectService.update(project);
+            projectService.findById(projectCode).setProjectStatus(initialProjectStatus);
+
 
             model.addAttribute("project", new ProjectDTO());
             model.addAttribute("projects", projectService.findAll());

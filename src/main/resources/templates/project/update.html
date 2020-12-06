@@ -1,8 +1,11 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <head th:replace="/fragments/head :: header"></head>
+
+<head th:replace="/fragments/head :: header"></head>
+
 <body>
+
 <div class="dashboard-main-wrapper">
 
     <div th:replace="/fragments/header :: header"></div>
@@ -22,13 +25,16 @@
                         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
                             <div class="section-block" id="basicform">
                                 <h3>Project Create</h3>
-                                <form th:action="@{/project/create}" method="post" th:object="${project}" class="needs-validation" novalidate>
+                                <form th:action="@{/project/update/{projectCode}(projectCode=${project.projectCode})}" method="post" th:object="${project}" class="needs-validation" novalidate>
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <label for="projectname" class="col-form-label">Project Name</label>
                                                 <input id="projectname" type="text"
-                                                       class="form-control" th:field="*{projectName}">
+                                                       class="form-control" th:field="*{projectName}" required="required">
+                                                <div class="invalid-feedback">
+                                                    Please add a project name
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -37,7 +43,10 @@
                                             <div class="form-group">
                                                 <label for="projectcode" class="col-form-label">Project Code</label>
                                                 <input id="projectcode" type="text"
-                                                       class="form-control" th:field="*{projectCode}">
+                                                       class="form-control" th:field="*{projectCode}" readonly required="required">
+                                                <div class="invalid-feedback">
+                                                    Please add a project code
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -49,8 +58,10 @@
                                                         required="required">
                                                     <option th:each="manager: ${managers}" th:value="${manager.userId}"
                                                             th:text="${manager.firstName}+ ' '+${manager.lastName}"></option>
-
                                                 </select>
+                                                <div class="invalid-feedback">
+                                                    Please select a manager
+                                                </div>
                                             </div>
                                         </div>
 
@@ -58,11 +69,17 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6">
                                             <label for="projectstart">Project Start Date</label><br>
-                                            <input class="form-control" type="date" value="YYYY-MM-DD" id="projectstart" th:field="*{startDate}">
+                                            <input class="form-control" type="date" value="YYYY-MM-DD" id="projectstart" th:field="*{startDate}" required="required">
+                                            <div class="invalid-feedback">
+                                                Please select a project start date
+                                            </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">
                                             <label for="projectend">Project End Date</label><br>
-                                            <input class="form-control" type="date" value="YYYY-MM-DD" id="projectend" th:field="*{endDate}">
+                                            <input class="form-control" type="date" value="YYYY-MM-DD" id="projectend" th:field="*{endDate}" required="required">
+                                            <div class="invalid-feedback">
+                                                Please select a project end date
+                                            </div>
                                         </div>
                                     </div>
 
@@ -160,5 +177,7 @@
 </div>
 
 <div th:replace="/fragments/javascript :: js"></div>
+
 </body>
+
 </html>
