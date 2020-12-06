@@ -32,7 +32,7 @@
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form th:action="@{/user/update/{id}(id=${user.userId})}" method="post" th:object="${user}"
+                                    <form th:action="@{/user/update/{userId}(userId=${user.userId})}" method="post" th:object="${user}"
                                           class="needs-validation" novalidate>
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6">
@@ -77,9 +77,9 @@
                                                     <label for="phonenumber" class="col-form-label">Phone Number</label>
                                                     <input th:field="*{phone}" id="phonenumber" type="text"
                                                            placeholder="phone number" class="form-control" required
-                                                           pattern="^\d{10}$">
+                                                           pattern="^\d{11}$">
                                                     <div class="invalid-feedback">
-                                                        Please provide 10 digit mobile number.
+                                                        Please provide 11 digit mobile number.
                                                     </div>
                                                 </div>
                                             </div>

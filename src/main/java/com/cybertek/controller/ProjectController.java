@@ -40,7 +40,6 @@ public class ProjectController {
         public String insertUser(ProjectDTO project, Model model){
 
             projectService.save(project);     //I am saving the user which created in @GetMapping
-
             return "redirect:/project/create";
 
         }

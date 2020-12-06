@@ -77,9 +77,9 @@
                                                     <label for="phonenumber" class="col-form-label">Phone Number</label>
                                                     <input th:field="*{phone}" id="phonenumber" type="text"
                                                            placeholder="phone number" class="form-control" required
-                                                           pattern="^\d{10}$">
+                                                           pattern="^\d{11}$">
                                                     <div class="invalid-feedback">
-                                                        Please provide 10 digit mobile number.
+                                                        Please provide 11 digit mobile number.
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,7 +141,7 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label>Choose a Role</label>
-                                                    <select th:field="*{role}" class="custom-select"
+                                                    <select name="role" class="custom-select"
                                                             required="required">
                                                         <option th:value=" ' '" th:text="Select">Select</option>
                                                         <option th:each="role: ${roles}" th:value="${role.id}"
@@ -204,7 +204,7 @@
                                                 <td th:text="${user.phone}"></td>
                                                 <td th:text="${user.role.description}"></td>
                                                 <td class="actions">
-                                                    <a th:href="@{/user/update/{id}(id=${user.userId})}">
+                                                    <a th:href="@{/user/update/{userId}(userId=${user.userId})}">
                                                         <button type="button" class="btn btn-warning btn-sm">Update
                                                         </button>
                                                     </a>

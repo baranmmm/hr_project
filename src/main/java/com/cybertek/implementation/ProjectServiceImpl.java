@@ -9,7 +9,7 @@ import java.util.List;
 public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> implements ProjectService {
     @Override
     public ProjectDTO save(ProjectDTO object) {
-        return super.save(object.getProjectCode(),object);
+        return super.save(object, object.getProjectCode());
     }
 
     @Override

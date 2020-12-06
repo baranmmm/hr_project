@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl extends AbstractMapService<UserDTO, String> implements UserService {
+public class UserServiceImpl extends AbstractMapService<UserDTO,String> implements UserService {
     @Override
     public UserDTO save(UserDTO object) {
-        return super.save(object.getUserId(), object);
+
+        String userId=""+(findAll().size()+1);
+        object.setUserId(userId);
+        return super.save(object, object.getUserId());
     }
 
     @Override
