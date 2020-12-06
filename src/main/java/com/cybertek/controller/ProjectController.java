@@ -89,14 +89,8 @@ public class ProjectController {
     @GetMapping("/complete/{projectCode}")
     public String completeProject(@PathVariable("projectCode") String projectCode, Model model){
 
-        ProjectDTO project = projectService.findById(projectCode);
-        project.setProjectStatus(Status.COMPLETE);
-
-        model.addAttribute("project", new ProjectDTO());
-        model.addAttribute("projects", projectService.findAll());
-        model.addAttribute("managers", userService.findManagers());
-
-        return "/project/create";
+        projectService.completeProject(projectCode);
+        return "redirect:/project/create";
 
     }
 
