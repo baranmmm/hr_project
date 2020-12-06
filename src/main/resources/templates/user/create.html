@@ -125,14 +125,18 @@
                                                     <label>Gender</label><br>
                                                     <label class="custom-control custom-radio custom-control-inline">
                                                         <input th:field="*{gender}" th:value="MALE" type="radio"
-                                                               name="radio-inline" checked=""
-                                                               class="custom-control-input"><span
-                                                            class="custom-control-label">Male</span>
+                                                               name="radio-inline"
+                                                               class="custom-control-input" required="required">
+
+                                                        <span
+                                                                class="custom-control-label">Male</span>
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
+
                                                         <input th:field="*{gender}" th:value="FEMALE" type="radio"
-                                                               name="radio-inline" class="custom-control-input"><span
-                                                            class="custom-control-label">Female</span>
+                                                               name="radio-inline" class="custom-control-input"
+                                                               required="required">
+                                                        <span class="custom-control-label">Female</span>
                                                     </label>
 
                                                 </div>
@@ -141,13 +145,16 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label>Choose a Role</label>
-                                                    <select name="role" class="custom-select"
+                                                    <select th:field="*{role}" class="custom-select"
                                                             required="required">
-                                                        <option th:value=" ' '" th:text="Select">Select</option>
+
+                                                        <option th:value=" ''" th:text="Select"></option>
                                                         <option th:each="role: ${roles}" th:value="${role.id}"
                                                                 th:text="${role.description}"></option>
-
                                                     </select>
+                                                    <div class="invalid-feedback">
+                                                        Please select a role
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -208,7 +215,8 @@
                                                         <button type="button" class="btn btn-warning btn-sm">Update
                                                         </button>
                                                     </a>
-                                                    <a th:href="@{/user/delete/{id}(id=${user.userId})}" class="delete-row">
+                                                    <a th:href="@{/user/delete/{id}(id=${user.userId})}"
+                                                       class="delete-row">
                                                         <button type="button" class="btn btn-secondary btn-sm">Delete
                                                         </button>
                                                     </a>

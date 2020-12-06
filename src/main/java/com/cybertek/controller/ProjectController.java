@@ -1,6 +1,8 @@
 package com.cybertek.controller;
 
 import com.cybertek.dto.ProjectDTO;
+import com.cybertek.dto.UserDTO;
+import com.cybertek.enums.Status;
 import com.cybertek.service.ProjectService;
 import com.cybertek.service.RoleService;
 import com.cybertek.service.UserService;
@@ -8,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.websocket.server.PathParam;
 
 @Controller
 @RequestMapping("/project")
@@ -31,7 +36,7 @@ public class ProjectController {
 
             model.addAttribute("project", new ProjectDTO());
             model.addAttribute("projects", projectService.findAll());
-            model.addAttribute("managers", userService.findAll());
+            model.addAttribute("managers", userService.findManagers());
 
             return "/project/create";
         }
@@ -40,9 +45,60 @@ public class ProjectController {
         public String insertUser(ProjectDTO project, Model model){
 
             projectService.save(project);     //I am saving the user which created in @GetMapping
+            project.setProjectStatus(Status.OPEN);
+
+            System.out.println(project.toString());
             return "redirect:/project/create";
 
         }
+
+        @GetMapping("/update/{projectCode}")
+        public String editProject(@PathVariable("projectCode") String projectCode, Model model){
+
+
+            model.addAttribute("project", projectService.findById(projectCode));
+            model.addAttribute("projects", projectService.findAll());
+            model.addAttribute("managers", userService.findManagers());
+
+            return "/project/update";
+        }
+
+        @PostMapping("/update/{projectCode}")
+        public String updatedProject(@PathVariable("projectCode") String projectCode, ProjectDTO project, Model model){
+
+
+            projectService.update(project);
+
+            model.addAttribute("project", new ProjectDTO());
+            model.addAttribute("projects", projectService.findAll());
+            model.addAttribute("managers", userService.findAll());
+
+            return "/project/create";
+
+
+        }
+
+
+    @GetMapping("/delete/{projectCode}")
+    public String deleteProject(@PathVariable("projectCode") String projectCode, Model model){
+
+        projectService.deleteById(projectCode);
+        return "redirect:/project/create";
+    }
+
+    @GetMapping("/complete/{projectCode}")
+    public String completeProject(@PathVariable("projectCode") String projectCode, Model model){
+
+        ProjectDTO project = projectService.findById(projectCode);
+        project.setProjectStatus(Status.COMPLETE);
+
+        model.addAttribute("project", new ProjectDTO());
+        model.addAttribute("projects", projectService.findAll());
+        model.addAttribute("managers", userService.findManagers());
+
+        return "/project/create";
+
+    }
 
 
 

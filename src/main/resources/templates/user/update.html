@@ -141,11 +141,10 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label>Choose a Role</label>
-                                                    <select name="role" class="custom-select"
+                                                    <select th:field="*{role}" class="custom-select"
                                                             required="required">
-                                                        <option th:value=" ' '" th:text="Select">Select</option>
                                                         <option th:each="role: ${roles}" th:value="${role.id}"
-                                                                th:text="${role.description}" th:selected="${role.id}==${user.role.id}"></option>
+                                                                th:text="${role.description}"></option>
                                                     </select>
                                                 </div>
                                             </div>
