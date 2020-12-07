@@ -59,6 +59,7 @@ public class ProjectController {
             model.addAttribute("projects", projectService.findAll());
             model.addAttribute("managers", userService.findManagers());
 
+
             return "/project/update";
         }
 
