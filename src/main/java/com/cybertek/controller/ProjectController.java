@@ -47,7 +47,6 @@ public class ProjectController {
             projectService.save(project);     //I am saving the user which created in @GetMapping
             project.setProjectStatus(Status.OPEN);
 
-            System.out.println(project.toString());
             return "redirect:/project/create";
 
         }

@@ -33,7 +33,7 @@
 
                                     <!-- ------------------------FORM START----------------------------- -->
 
-                                    <form th:action="@{/task/create}" method="post" th:object="${task}"
+                                    <form th:action="@{/task/update/{taskId}(taskId=${task.taskId})}" method="post" th:object="${task}"
                                           class="needs-validation" novalidate>
                                         <div class="row">
                                             <div class="col-lg-8 col-md-8">
@@ -41,7 +41,6 @@
                                                     <label>Project</label>
                                                     <select th:field="*{project}" class="custom-select"
                                                             required="required">
-                                                        <option value="''">Select</option>
                                                         <option th:each="project: ${projects}"
                                                                 th:value="${project.projectCode}"
                                                                 th:text="${project.projectCode}+ '-'+${project.projectName}"></option>
@@ -58,7 +57,6 @@
                                                     <label>Assigned Employee</label>
                                                     <select th:field="*{employee}" class="custom-select"
                                                             required="required">
-                                                        <option value="''">Select</option>
                                                         <option th:each="employee: ${employees}"
                                                                 th:value="${employee.userId}"
                                                                 th:text="${employee.firstName}+ ' '+${employee.lastName}"></option>
@@ -154,7 +152,7 @@
                                                         </button>
                                                     </a>
                                                     <a th:href="@{/task/delete/{taskId}(taskId=${task.taskId})}"
-                                                       class="delete-row">
+                                                            class="delete-row">
                                                         <button type="button" class="btn btn-secondary btn-sm">Delete
                                                         </button>
                                                     </a>
