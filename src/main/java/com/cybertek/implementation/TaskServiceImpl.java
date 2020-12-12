@@ -3,6 +3,7 @@ package com.cybertek.implementation;
 import com.cybertek.dto.TaskDTO;
 import com.cybertek.enums.Status;
 import com.cybertek.service.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,6 +13,8 @@ import java.util.UUID;
 @Service
 public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements TaskService {
 
+    @Autowired
+    TaskService taskService;
 
     @Override
     public TaskDTO save(TaskDTO task) {
@@ -48,12 +51,7 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements
 
     @Override
     public void update(TaskDTO task) {
-        if(task.getStatus()==null){
-            task.setStatus(Status.OPEN);
-        }
-        if (task.getAssignDate()==null){
-            task.setAssignDate(LocalDate.now());
-        }
+
         super.update(task.getTaskId(),task);
     }
 }

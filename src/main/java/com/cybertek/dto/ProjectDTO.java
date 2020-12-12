@@ -24,4 +24,7 @@ public class ProjectDTO {
     private LocalDate endDate;
     private String projectDetail;
     private Status projectStatus;
+
+
+
 }

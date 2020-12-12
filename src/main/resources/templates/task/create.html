@@ -143,7 +143,7 @@
                                             </thead>
                                             <tbody>
                                             <tr th:each="task : ${tasks}">
-                                                <td th:text="${task.project.projectName}"></td>
+                                                <td th:text="${task.project.projectCode + ' - ' +task.project.projectName}"></td>
                                                 <td th:text="${task.taskSubject}"></td>
                                                 <td th:text="${task.employee.firstName + ' '+ task.employee.lastName}"></td>
                                                 <td th:text="${#temporals.format(task.assignDate, 'dd-MM-yyyy')}"></td>

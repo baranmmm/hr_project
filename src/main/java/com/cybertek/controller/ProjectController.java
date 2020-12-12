@@ -9,12 +9,11 @@ import com.cybertek.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/project")
@@ -24,80 +23,102 @@ public class ProjectController {
     ProjectService projectService;
 
 
-        @Autowired
-        RoleService roleService;
+    @Autowired
+    RoleService roleService;
 
-        @Autowired
-        UserService userService;
-
-
-        @GetMapping({"/create"})
-        public String newProject(Model model){
-
-            model.addAttribute("project", new ProjectDTO());
-            model.addAttribute("projects", projectService.findAll());
-            model.addAttribute("managers", userService.findManagers());
-
-            return "/project/create";
-        }
-
-        @PostMapping("/create")
-        public String insertUser(ProjectDTO project, Model model){
-
-            projectService.save(project);     //I am saving the user which created in @GetMapping
-            project.setProjectStatus(Status.OPEN);
-
-            return "redirect:/project/create";
-
-        }
-
-        @GetMapping("/update/{projectCode}")
-        public String editProject(@PathVariable("projectCode") String projectCode, Model model){
+    @Autowired
+    UserService userService;
 
 
-            model.addAttribute("project", projectService.findById(projectCode));
-            model.addAttribute("projects", projectService.findAll());
-            model.addAttribute("managers", userService.findManagers());
+    @GetMapping({"/create"})
+    public String newProject(Model model) {
+
+        model.addAttribute("project", new ProjectDTO());
+        model.addAttribute("projects", projectService.findAll());
+        model.addAttribute("managers", userService.findManagers());
+
+        return "/project/create";
+    }
+
+    @PostMapping("/create")
+    public String insertUser(ProjectDTO project, Model model) {
+
+        projectService.save(project);     //I am saving the user which created in @GetMapping
+        project.setProjectStatus(Status.OPEN);
+
+        return "redirect:/project/create";
+
+    }
+
+    @GetMapping("/update/{projectCode}")
+    public String editProject(@PathVariable("projectCode") String projectCode, Model model) {
 
 
-            return "/project/update";
-        }
-
-        @PostMapping("/update/{projectCode}")
-        public String updatedProject(@PathVariable("projectCode") String projectCode, ProjectDTO project, Model model){
-
-            Status initialProjectStatus = projectService.findById(projectCode).getProjectStatus();
-            projectService.update(project);
-            projectService.findById(projectCode).setProjectStatus(initialProjectStatus);
+        model.addAttribute("project", projectService.findById(projectCode));
+        model.addAttribute("projects", projectService.findAll());
+        model.addAttribute("managers", userService.findManagers());
 
 
-            model.addAttribute("project", new ProjectDTO());
-            model.addAttribute("projects", projectService.findAll());
-            model.addAttribute("managers", userService.findAll());
+        return "/project/update";
+    }
 
-            return "/project/create";
+    @PostMapping("/update/{projectCode}")
+    public String updatedProject(@PathVariable("projectCode") String projectCode, ProjectDTO project, Model model) {
+
+        Status initialProjectStatus = projectService.findById(projectCode).getProjectStatus();
+        projectService.update(project);
+        projectService.findById(projectCode).setProjectStatus(initialProjectStatus);
 
 
-        }
+        model.addAttribute("project", new ProjectDTO());
+        model.addAttribute("projects", projectService.findAll());
+        model.addAttribute("managers", userService.findAll());
+
+        return "/project/create";
+
+
+    }
 
 
     @GetMapping("/delete/{projectCode}")
-    public String deleteProject(@PathVariable("projectCode") String projectCode, Model model){
+    public String deleteProject(@PathVariable("projectCode") String projectCode, Model model) {
 
         projectService.deleteById(projectCode);
         return "redirect:/project/create";
     }
 
     @GetMapping("/complete/{projectCode}")
-    public String completeProject(@PathVariable("projectCode") String projectCode, Model model){
+    public String completeProject(@PathVariable("projectCode") String projectCode, Model model) {
 
         projectService.completeProject(projectCode);
         return "redirect:/project/create";
 
     }
 
+    @GetMapping("/status")
+    public String projectStatus(Model model){
+
+        UserDTO manager= userService.findById("1");
+
+        List<ProjectDTO> projectsOfManager = projectService.findAll().stream().filter(projectDTO -> projectDTO.getAssignedManager().equals(manager)).collect(Collectors.toList());
+
+        List<ProjectDTO> projectList = projectsOfManager;
+        model.addAttribute("projects", projectList);
 
 
+
+        return "/project/status";
+    }
 
 
 }
+
+
+
+
+
+
+
+
+
+

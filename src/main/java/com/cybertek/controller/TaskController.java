@@ -66,8 +66,10 @@ public class TaskController {
     @PostMapping("/update/{taskId}")
     public String updatedTask(@PathVariable("taskId") Long taskId, TaskDTO task, Model model){
 
-
+        TaskDTO initialTask = taskService.findById(taskId);
         taskService.update(task);
+        task.setStatus(initialTask.getStatus());
+        task.setAssignDate(initialTask.getAssignDate());
 
         model.addAttribute("task", new TaskDTO());
         model.addAttribute("projects", projectService.findAll());
