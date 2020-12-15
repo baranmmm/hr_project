@@ -88,4 +88,10 @@ public class TaskController {
         return "redirect:/task/create";
     }
 
+    @GetMapping("/status")
+    public String taskStatus(){
+
+        return "/task/status";
+    }
+
 }

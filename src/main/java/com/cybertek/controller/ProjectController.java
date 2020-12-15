@@ -100,12 +100,23 @@ public class ProjectController {
         return "redirect:/project/create";
 
     }
+    @GetMapping("/status/complete/{projectCode}")
+    public String completeProject2(@PathVariable("projectCode") String projectCode, Model model) {
+
+        projectService.completeProject(projectCode);
+
+
+        return "redirect:/project/status";
+
+    }
+
 
     @GetMapping("/status")
     public String projectStatus(Model model){
 
         UserDTO manager= userService.findById("1");
-        List<ProjectDTO> projectsOfManager = projectService.findAll().stream().filter(projectDTO -> projectDTO.getAssignedManager().equals(manager)).collect(Collectors.toList());
+        List<ProjectDTO> projectsOfManager = projectService.findAll().stream()
+                .filter(projectDTO -> projectDTO.getAssignedManager().equals(manager)).collect(Collectors.toList());
         List<ProjectDTO> projectList = projectsOfManager;
 
         long allTasks=0;
@@ -114,7 +125,8 @@ public class ProjectController {
 
         for (int i = 0; i < projectList.size(); i++) {
             int finalI = i;
-            CompletedTasks = taskService.findAll().stream().filter(taskDTO -> taskDTO.getProject().equals(projectList.get(finalI))).filter(taskDTO -> taskDTO.getStatus().equals(Status.COMPLETE)).count();
+            CompletedTasks = taskService.findAll().stream().filter(taskDTO -> taskDTO.getProject().equals(projectList.get(finalI)))
+                    .filter(taskDTO -> taskDTO.getStatus().equals(Status.COMPLETE)).count();
             allTasks = taskService.findAll().stream().filter(taskDTO -> taskDTO.getProject().equals(projectList.get(finalI))).count();
             unfinishedTasks=allTasks-CompletedTasks;
             projectList.get(finalI).setCompletedTaskRatio(unfinishedTasks+"/"+CompletedTasks);
@@ -123,6 +135,9 @@ public class ProjectController {
         model.addAttribute("projects", projectList);
         return "/project/status";
     }
+
+
+
 
 
 }

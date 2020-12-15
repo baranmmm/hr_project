@@ -26,7 +26,7 @@
 
                             <section class="panel panel-transparent">
                                 <header class="panel-heading">
-
+                                    <h2 class="panel-title">Project Create</h2>
                                 </header>
 
                                 <div class="panel-body">
@@ -57,42 +57,21 @@
                         <div class="col-md-12">
                             <section class="panel">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">Project List</h2>
+                                    <h2 class="panel-title">User List</h2>
                                 </header>
                                 <div class="panel-body">
                                     <div class="table-responsive">
-
                                         <table class="table table-striped">
-
                                             <thead>
                                             <tr>
-                                                <th scope="col">Project Code</th>
-                                                <th scope="col">Project Name</th>
-                                                <th scope="col">Start / End Date</th>
-                                                <th scope="col">Manager</th>
-                                                <th scope="col">Unfinished / Completed</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Action</th>
-
+                                                <th scope="col"></th>
                                             </tr>
                                             </thead>
                                             <tbody>
-
-
-                                            <tr th:each="project : ${projects}">
-
-                                                <td th:text="${project.projectCode}"></td>
-                                                <td th:text="${project.projectName}"></td>
-                                                <td th:text="${#temporals.format(project.startDate, 'dd-MM-yyyy') + ' / '+#temporals.format(project.endDate, 'dd-MM-yyyy')}"></td>
-                                                <td th:text="${project.assignedManager.firstName + ' '+ project.assignedManager.lastName}"></td>
-                                                <td th:text="${project.completedTaskRatio}"></td>
-                                                <td th:text="${project.projectStatus}"></td>
-                                                <td>
-                                                    <a th:href="@{/project/status/complete/{projectCode}(projectCode=${project.projectCode})}">
-                                                        <button type="button" class="btn btn-primary">Complete</button>
-                                                    </a>
-                                                </td>
-
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>
                                             </tbody>
                                         </table>
