@@ -18,36 +18,6 @@
 
             <div class="container-fluid dashboard-content">
 
-                <div class="ecommerce-widget">
-
-                    <div class="row">
-
-                        <div class="col-lg-6 col-md-12">
-
-                            <section class="panel panel-transparent">
-                                <header class="panel-heading">
-                                    <h2 class="panel-title">Project Create</h2>
-                                </header>
-
-                                <div class="panel-body">
-
-                                    <!-- ------------------------FORM START----------------------------- -->
-                                    <form>
-
-
-                                    </form>
-                                    <!-- ------------------------FORM END----------------------------- -->
-
-                                </div>
-
-                            </section>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
 
 
                 <!-- ------------------------TABLE START----------------------------- -->
@@ -57,21 +27,27 @@
                         <div class="col-md-12">
                             <section class="panel">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">User List</h2>
+                                    <h2 class="panel-title">Archived Tasks</h2>
                                 </header>
                                 <div class="panel-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped">
                                             <thead>
                                             <tr>
-                                                <th scope="col"></th>
+                                                <th scope="col">Project</th>
+                                                <th scope="col">Task Subject</th>
+                                                <th scope="col">Assigned Employee</th>
+                                                <th scope="col">Assigned Date</th>
+                                                <th scope="col">Status</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr th:each="task : ${completedTasks}">
+                                                <td th:text="${task.project.projectCode + '-'+ task.project.projectName}"></td>
+                                                <td th:text="${task.taskSubject}"></td>
+                                                <td th:text="${task.employee.firstName +' '+ task.employee.lastName}"></td>
+                                                <td th:text="${task.assignDate}"></td>
+                                                <td th:text="${task.status.getValue()}"></td>
                                             </tr>
                                             </tbody>
                                         </table>

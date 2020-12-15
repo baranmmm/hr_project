@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements TaskService {
@@ -53,5 +54,13 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements
     public void update(TaskDTO task) {
 
         super.update(task.getTaskId(),task);
+    }
+
+    @Override
+    public List<TaskDTO> findAllCompletedTasks() {
+
+        List<TaskDTO> completedTasks = super.findAll().stream().filter(taskDTO -> taskDTO.getStatus().equals(Status.COMPLETE)).collect(Collectors.toList());
+
+        return completedTasks;
     }
 }

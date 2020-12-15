@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> implements ProjectService {
@@ -45,5 +47,12 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> im
         super.findById(projectCode).setProjectStatus(Status.COMPLETE);
         super.findById(projectCode).setEndDate(LocalDate.now());
         super.save(super.findById(projectCode), projectCode);
+    }
+
+    @Override
+    public List<ProjectDTO> findAllCompletedProjects() {
+
+        List<ProjectDTO> completedProjects = super.findAll().stream().filter(projectDTO -> projectDTO.getProjectStatus().equals(Status.COMPLETE)).collect(Collectors.toList());
+        return completedProjects;
     }
 }

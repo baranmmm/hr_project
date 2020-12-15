@@ -138,7 +138,9 @@ public class ProjectController {
 
 
     @GetMapping("/archive")
-    public String taskStatus(){
+    public String taskStatus(Model model){
+
+        model.addAttribute("completedTasks", taskService.findAllCompletedTasks());
 
         return "/project/archive";
     }
