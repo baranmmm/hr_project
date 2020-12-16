@@ -86,7 +86,7 @@
                                                 <td th:text="${#temporals.format(project.startDate, 'dd-MM-yyyy') + ' / '+#temporals.format(project.endDate, 'dd-MM-yyyy')}"></td>
                                                 <td th:text="${project.assignedManager.firstName + ' '+ project.assignedManager.lastName}"></td>
                                                 <td th:text="${project.completedTaskRatio}"></td>
-                                                <td th:text="${project.projectStatus}"></td>
+                                                <td th:text="${project.projectStatus.getValue()}"></td>
                                                 <td>
                                                     <a th:href="@{/project/status/complete/{projectCode}(projectCode=${project.projectCode})}">
                                                         <button type="button" class="btn btn-primary">Complete</button>

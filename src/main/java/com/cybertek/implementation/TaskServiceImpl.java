@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -54,6 +55,18 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements
     public void update(TaskDTO task) {
 
         super.update(task.getTaskId(),task);
+    }
+
+    @Override
+    public List<Status> findAllStatuses() {
+
+        List<Status> statusList = new ArrayList<>();
+        statusList.add(Status.COMPLETE);
+        statusList.add(Status.IN_PROGRESS);
+        statusList.add(Status.OPEN);
+        statusList.add(Status.UAT_TEST);
+
+        return statusList;
     }
 
     @Override

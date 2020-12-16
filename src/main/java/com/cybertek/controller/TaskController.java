@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/task")
@@ -89,9 +91,46 @@ public class TaskController {
     }
 
     @GetMapping("/status")
-    public String taskStatus(){
+    public String taskStatus(TaskDTO task, Model model){
+
+        model.addAttribute("task", task);
+        model.addAttribute("tasks", taskService.findAll());
+        model.addAttribute("projects", projectService.findAll());
+        model.addAttribute("employees", userService.findEmployees());
+        model.addAttribute("statuses", taskService.findAllStatuses());
+
 
         return "/task/status";
+    }
+
+    @GetMapping("/status/{taskId}")
+    public String taskStatusChange(@PathVariable("taskId") Long taskId, Model model){
+
+        model.addAttribute("task", taskService.findById(taskId));
+        model.addAttribute("tasks", taskService.findAll());
+        model.addAttribute("projects", projectService.findAll());
+        model.addAttribute("employees", userService.findEmployees());
+        model.addAttribute("statuses", taskService.findAllStatuses());
+
+
+        return "/task/status2";
+    }
+
+    @PostMapping("/status/{taskId}")
+    public String taskStatusUpdated(@PathVariable("taskId") Long taskId, TaskDTO task, Model model){
+
+        TaskDTO initialTask=taskService.findById(taskId);
+        taskService.update(taskService.findById(taskId));
+        initialTask.setStatus(task.getStatus());
+
+        model.addAttribute("task", taskService.findById(taskId));
+        model.addAttribute("tasks", taskService.findAll());
+        model.addAttribute("projects", projectService.findAll());
+        model.addAttribute("employees", userService.findEmployees());
+        model.addAttribute("statuses", taskService.findAllStatuses());
+
+
+        return "redirect:/task/status";
     }
 
 }

@@ -33,7 +33,7 @@
 
                                     <!-- ------------------------FORM START----------------------------- -->
 
-                                    <form th:object="${task}"
+                                    <form th:action="@{/task/status/{taskId}(taskId=${task.taskId})}" method="post" th:object="${task}"
                                           class="needs-validation" novalidate>
                                         <div class="row">
                                             <div class="col-lg-8 col-md-8">
@@ -100,7 +100,7 @@
                                                 <div class="form-group">
                                                     <label>Status</label>
                                                     <select th:field="*{status}" class="custom-select"
-                                                            required="required" disabled>
+                                                            required="required">
                                                         <option value="''">Select</option>
                                                         <option th:each="status: ${statuses}"
                                                                 th:value="${status}"

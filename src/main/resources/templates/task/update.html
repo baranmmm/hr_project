@@ -147,7 +147,7 @@
                                                 <td th:text="${task.taskSubject}"></td>
                                                 <td th:text="${task.employee.firstName + ' '+ task.employee.lastName}"></td>
                                                 <td th:text="${#temporals.format(task.assignDate, 'dd-MM-yyyy')}"></td>
-                                                <td th:text="${task.status}"></td>
+                                                <td th:text="${task.status.getValue()}"></td>
                                                 <td class="actions">
                                                     <a th:href="@{/task/update/{taskId}(taskId=${task.taskId})}">
                                                         <button type="button" class="btn btn-warning btn-sm">Update
