@@ -1,8 +1,12 @@
 package com.cybertek.implementation;
 
 import com.cybertek.dto.ProjectDTO;
+import com.cybertek.dto.UserDTO;
 import com.cybertek.enums.Status;
 import com.cybertek.service.ProjectService;
+import com.cybertek.service.TaskService;
+import com.cybertek.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,6 +16,17 @@ import java.util.stream.Stream;
 
 @Service
 public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> implements ProjectService {
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    ProjectService projectService;
+
+    @Autowired
+    TaskService taskService;
+
+
     @Override
     public ProjectDTO save(ProjectDTO object) {
         return super.save(object, object.getProjectCode());
@@ -54,5 +69,28 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> im
 
         List<ProjectDTO> completedProjects = super.findAll().stream().filter(projectDTO -> projectDTO.getProjectStatus().equals(Status.COMPLETE)).collect(Collectors.toList());
         return completedProjects;
+    }
+
+    public List<ProjectDTO> listOfManagersProjects(UserDTO manager){
+
+        List<ProjectDTO> projectsOfManager = projectService.findAll().stream()
+                .filter(projectDTO -> projectDTO.getAssignedManager().equals(manager)).collect(Collectors.toList());
+
+
+        long allTasks=0;
+        long CompletedTasks=0;
+        long unfinishedTasks=0;
+
+        for (int i = 0; i < projectsOfManager.size(); i++) {
+            int finalI = i;
+            CompletedTasks = taskService.findAll().stream().filter(taskDTO -> taskDTO.getProject().equals(projectsOfManager.get(finalI)))
+                    .filter(taskDTO -> taskDTO.getStatus().equals(Status.COMPLETE)).count();
+            allTasks = taskService.findAll().stream().filter(taskDTO -> taskDTO.getProject().equals(projectsOfManager.get(finalI))).count();
+            unfinishedTasks=allTasks-CompletedTasks;
+            projectsOfManager.get(finalI).setCompletedTaskRatio(unfinishedTasks+"/"+CompletedTasks);
+
+        }
+
+        return projectsOfManager;
     }
 }

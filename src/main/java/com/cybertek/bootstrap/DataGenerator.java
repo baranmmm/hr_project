@@ -68,9 +68,9 @@ public class DataGenerator implements CommandLineRunner {
         userService.save(user7);
         userService.save(user8);
 
-        ProjectDTO project1=new ProjectDTO("Spring MVC", "PR001", user1, LocalDate.now(),LocalDate.now().plusDays(30),"Creating Controller", Status.OPEN);
-        ProjectDTO project2=new ProjectDTO("Spring ORM", "PR002", user3, LocalDate.now(),LocalDate.now().plusDays(60),"Creating Database", Status.IN_PROGRESS);
-        ProjectDTO project3=new ProjectDTO("Spring Container", "PR003", user1, LocalDate.now (),LocalDate.now().plusDays(15),"Creating Container", Status.UAT_TEST);
+        ProjectDTO project1=new ProjectDTO("Spring MVC", "PR001", user1, LocalDate.now(),LocalDate.now().plusDays(30),"Creating Controller", Status.OPEN, "99/99");
+        ProjectDTO project2=new ProjectDTO("Spring ORM", "PR002", user3, LocalDate.now(),LocalDate.now().plusDays(60),"Creating Database", Status.IN_PROGRESS, "99/99");
+        ProjectDTO project3=new ProjectDTO("Spring Container", "PR003", user1, LocalDate.now (),LocalDate.now().plusDays(15),"Creating Container", Status.UAT_TEST, "99/99");
 
         projectService.save(project1);
         projectService.save(project2);

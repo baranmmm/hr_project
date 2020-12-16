@@ -59,7 +59,9 @@ public class ProjectController {
     @GetMapping("/update/{projectCode}")
     public String editProject(@PathVariable("projectCode") String projectCode, Model model) {
 
-
+        String initialcompletedTaskRate=projectService.findById(projectCode).getCompletedTaskRatio();
+        projectService.findById(projectCode).setCompletedTaskRatio(initialcompletedTaskRate);
+        projectService.save(projectService.findById(projectCode));
         model.addAttribute("project", projectService.findById(projectCode));
         model.addAttribute("projects", projectService.findAll());
         model.addAttribute("managers", userService.findManagers());
@@ -72,9 +74,11 @@ public class ProjectController {
     public String updatedProject(@PathVariable("projectCode") String projectCode, ProjectDTO project, Model model) {
 
         Status initialProjectStatus = projectService.findById(projectCode).getProjectStatus();
+        String initialcompletedTaskRate=projectService.findById(projectCode).getCompletedTaskRatio();
         projectService.update(project);
-        projectService.findById(projectCode).setProjectStatus(initialProjectStatus);
-
+        project.setCompletedTaskRatio(initialcompletedTaskRate);
+        project.setProjectStatus(initialProjectStatus);
+        projectService.save(project);
 
         model.addAttribute("project", new ProjectDTO());
         model.addAttribute("projects", projectService.findAll());
@@ -113,25 +117,8 @@ public class ProjectController {
 
     @GetMapping("/status")
     public String projectStatus(Model model){
-
-        UserDTO manager= userService.findById("1");
-        List<ProjectDTO> projectsOfManager = projectService.findAll().stream()
-                .filter(projectDTO -> projectDTO.getAssignedManager().equals(manager)).collect(Collectors.toList());
-        List<ProjectDTO> projectList = projectsOfManager;
-
-        long allTasks=0;
-        long CompletedTasks=0;
-        long unfinishedTasks=0;
-
-        for (int i = 0; i < projectList.size(); i++) {
-            int finalI = i;
-            CompletedTasks = taskService.findAll().stream().filter(taskDTO -> taskDTO.getProject().equals(projectList.get(finalI)))
-                    .filter(taskDTO -> taskDTO.getStatus().equals(Status.COMPLETE)).count();
-            allTasks = taskService.findAll().stream().filter(taskDTO -> taskDTO.getProject().equals(projectList.get(finalI))).count();
-            unfinishedTasks=allTasks-CompletedTasks;
-            projectList.get(finalI).setCompletedTaskRatio(unfinishedTasks+"/"+CompletedTasks);
-
-        }
+        UserDTO manager=userService.findById("1");
+        List<ProjectDTO> projectList = projectService.listOfManagersProjects(manager);
         model.addAttribute("projects", projectList);
         return "/project/status";
     }
