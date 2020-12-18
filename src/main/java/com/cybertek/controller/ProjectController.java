@@ -52,6 +52,7 @@ public class ProjectController {
         projectService.save(project);     //I am saving the user which created in @GetMapping
         project.setProjectStatus(Status.OPEN);
 
+
         return "redirect:/project/create";
 
     }
@@ -67,6 +68,7 @@ public class ProjectController {
         model.addAttribute("managers", userService.findManagers());
 
 
+
         return "/project/update";
     }
 
@@ -79,6 +81,7 @@ public class ProjectController {
         project.setCompletedTaskRatio(initialcompletedTaskRate);
         project.setProjectStatus(initialProjectStatus);
         projectService.save(project);
+
 
         model.addAttribute("project", new ProjectDTO());
         model.addAttribute("projects", projectService.findAll());

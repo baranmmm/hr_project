@@ -123,6 +123,7 @@ public class TaskController {
         taskService.update(taskService.findById(taskId));
         initialTask.setStatus(task.getStatus());
 
+
         model.addAttribute("task", taskService.findById(taskId));
         model.addAttribute("tasks", taskService.findAll());
         model.addAttribute("projects", projectService.findAll());

@@ -23,6 +23,7 @@ public class TaskDTO {
     private Status status;
     private LocalDate assignDate;
 
+
     public TaskDTO(ProjectDTO project, UserDTO employee, String taskSubject, String taskDetail, Status status, LocalDate assignDate) {
         this.project = project;
         this.employee = employee;

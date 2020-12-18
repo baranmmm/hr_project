@@ -67,6 +67,7 @@ public class UserController {
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
 
+
         return "/user/create";
     }
 
@@ -74,6 +75,8 @@ public class UserController {
     public String deleteUser(@PathVariable("userId") String userId, UserDTO user, Model model){
 
         userService.deleteById(userId);
+
+
         return "redirect:/user/create";
     }
 
